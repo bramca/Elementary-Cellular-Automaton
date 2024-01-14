@@ -1,12 +1,12 @@
-let framerate = 10;
+let framerate = 60;
 let amountHorizontalCells = 100;
 let amountOfGenerations = 0;
-let cellWidth = 10;
-let cellHeight = 10;
+let cellWidth = 2;
+let cellHeight = 2;
 let currGen = [];
 let currGenColors = [];
 let generation = 0;
-let ruleNumber = 30;
+let ruleNumber = 86;
 let colors = [];
 let notActiveColor = "white";
 let sketch = function (p) {
@@ -14,15 +14,16 @@ let sketch = function (p) {
         c = p.createCanvas(p.windowWidth, p.windowHeight);
         amountHorizontalCells = p.windowWidth / cellWidth;
         amountOfGenerations = p.windowHeight / cellHeight;
+        notActiveColor = randomcolor();
         for (let i = 0; i < amountHorizontalCells; i++) {
             currGen.push('0');
-            currGenColors.push('white');
+            currGenColors.push(notActiveColor);
         }
-        currGen[Math.floor(currGen.length / 2)] = '1';
         for (let i = 0; i < 4; i++) {
             colors.push(randomcolor());
         }
-        notActiveColor = randomcolor();
+        currGen[Math.floor(currGen.length / 2)] = '1';
+        currGenColors[Math.floor(currGenColors.length / 2)] = colors[0];
         document.getElementById("canvascontainer").appendChild(c.canvas);
         p.frameRate(framerate);
     };
