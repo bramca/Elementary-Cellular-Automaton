@@ -24,6 +24,31 @@ let sketch = function (p) {
         }
         currGen[Math.floor(currGen.length / 2)] = '1';
         currGenColors[Math.floor(currGenColors.length / 2)] = colors[0];
+        document.getElementById("rulenumber").setAttribute("value", ruleNumber);
+        document.getElementById("rulenumber").addEventListener("change", function() {
+            ruleNumber = Number(this.value);
+            currGen = [];
+            for (let i = 0; i < amountHorizontalCells; i++) {
+                currGen.push('0');
+                currGenColors.push(notActiveColor);
+                currGen[Math.floor(currGen.length / 2)] = '1';
+                currGenColors[Math.floor(currGenColors.length / 2)] = colors[0];
+            }
+        });
+        document.getElementById("cellsize").addEventListener("change", function() {
+            cellWidth = Number(this.value);
+            cellHeight = Number(this.value);
+            amountHorizontalCells = p.windowWidth / cellWidth;
+            amountOfGenerations = p.windowHeight / cellHeight;
+            currGen = [];
+            for (let i = 0; i < amountHorizontalCells; i++) {
+                currGen.push('0');
+                currGenColors.push(notActiveColor);
+                currGen[Math.floor(currGen.length / 2)] = '1';
+                currGenColors[Math.floor(currGenColors.length / 2)] = colors[0];
+            }
+        });
+
         document.getElementById("canvascontainer").appendChild(c.canvas);
         p.frameRate(framerate);
     };
@@ -35,7 +60,7 @@ let sketch = function (p) {
             p.fill(currGen[i] == '0' ?  currGenColors[i] : notActiveColor);
             p.rect(i * cellWidth, generation * cellHeight, cellWidth, cellHeight);
             p.pop();
-        } 
+        }
 
         generation++;
         if (generation > amountOfGenerations) {
